@@ -47,7 +47,14 @@ func (lexer *Lexer) NextToken() token.Token {
 	case '}':
 		tok = newToken(token.RBRACE, lexer.char)
 	case 0:
-		token.Literal = ""
-		token.Type = token.EOF
+		tok.Literal = ""
+		tok.Type = token.EOF
 	}
+
+	lexer.ReadChar()
+	return tok
+}
+
+func newToken(tokenType token.TokenType, char byte) token.Token {
+	return token.Token{Type: tokenType, Literal: string(char)}
 }
